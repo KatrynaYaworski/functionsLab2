@@ -5,16 +5,18 @@
   Invoke the callback, passing in the product of the two numbers multiplied as the argument. 
 */
 
-// CODE HERE
+function multiply(num1, num2, cb){
+  cb(num1 * num2)
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// multiply(4, 3, answer => {
-//   console.log('The answer is ' + answer) //should console.log 12
-// })
+multiply(4, 3, answer => {
+  console.log('The answer is ' + answer) //should console.log 12
+})
 
 
 
@@ -35,17 +37,16 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback function, passing in the first element in the array as it's argument.
 */
 
-// CODE HERE 
+let first = (array, cb) => cb(array[0])
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// first(names, firstName => {
-//   console.log('The first name in names is ' + firstName)
-// })
-
+first(names, firstName => {
+  console.log('The first name in names is ' + firstName)
+})
 
 
 ////////// PROBLEM 3 //////////
@@ -54,17 +55,16 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Write a function called last that takes in an array and a callback function. 
   Then invoke the callback, passing in the last element in the array as the argument.
 */
-
-// CODE HERE
+let last = (array, cb) => cb(array[array.length-1])
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// last(names, lastName => {
-//   console.log('The last name in names is ' + lastName)
-// })
+last(names, lastName => {
+  console.log('The last name in names is ' + lastName)
+})
 
 
 
@@ -77,20 +77,26 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   If the name does not exist, invoke the callback with false as the argument.
 */
 
-// CODE HERE 
+let contains = (array, name, cb) => {
+  for (let i = 0; i < array.length; i++){
+    if(array[i] === name){
+      return cb(true)
+    }
+  }return cb(false)
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// contains(names, 'Colt', result => {
-//   if(result === true){
-//     console.log('Colt is in the array')
-//   } else {
-//     console.log('Colt is not in the array')
-//   }
-// })
+contains(names, 'Colt', result => {
+  if(result === true){
+    console.log('Colt is in the array')
+  } else {
+    console.log('Colt is not in the array')
+  }
+})
 
 
 
@@ -102,7 +108,15 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Hint: you can use a nested for loop to do this.
 */
 
-// CODE HERE
+let uniq = (array, cb) => {
+  for(let i = 0; i < array.length - 1; i++){
+    for(let j = i + 1; j < array.length; j++){
+      if (array[i] === array[j])
+      array.splice([i],1)
+    }
+  }
+  return cb(array)
+}
 
 /*
   Invoke the uniq function, passing in the names array from above and a callback function.
@@ -111,7 +125,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The new names array with all the duplicate items removed is [UNIQARRPARAM].'
 */
 
-// CODE HERE
+uniq(names, cb = (uniqArr) => console.log(`the new names array with all the duplicate items removed is ${uniqArr}.`))
 
 
 
@@ -122,8 +136,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 */
 
-// CODE HERE 
-
+let each = (array) => array.forEach((element, i)=> console.log(`the item at index ${element} is at index ${i}`));
 
 /*
   Invoke the each function, passing in the names array and a callback function.
@@ -132,11 +145,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The item at index [INDEXPARAM] is [ITEMPARAM].'
 */
 
-// CODE HERE
-
-
-
-
+each(names)
 
 ////////// CHALLENGES //////////
 
@@ -158,7 +167,12 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   the two parameters together and return the sum.
 */
 
-// CODE HERE
+function addingFactory(num1){
+  return function add(num2){
+    sum = num1 + num2
+    return sum
+  }
+}
 
 /*
   Now that you have addingFactory, you can create other
@@ -172,7 +186,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   10 as an arguemnt.
 */
 
-// CODE HERE
+let addTen = addingFactory(10)
 
 /*
   Now the inner function is stored in the addTen variable! 
@@ -184,7 +198,7 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   to see the different outputs.
 */
 
-// CODE HERE
+console.log(addTen(5))
 
 /*
   Let's make another function from the addingFactory. 
@@ -197,7 +211,8 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   to add any number to your favorite number!
 */
 
-// CODE HERE
+let addNumber = addingFactory(7)
+console.log(addNumber(7))
 
 
 
@@ -205,7 +220,8 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
 ////////// CHALLENGE 2 //////////
 
 /*
-  Write a function called getUserById that takes in three parameters: an array of objects (users), an id and a callback, and searches for the user with a matching id.
+  Write a function called getUserById that takes in three parameters: an array of objects (users), an id and a callback, 
+  and searches for the user with a matching id.
   When the correct user object is found, invoke the callback with the user object as an argument.
   You'll learn about objects in our next lecture. But you can research objects and attempt this problem.
 */
@@ -233,7 +249,14 @@ var users = [
 ]
 // Do not edit the code above.
 
-// CODE HERE 
+function getUserById(objArray, id, cb){
+  for(let i = 0; i < objArray.length; i++){
+    if(objArray[i].id === id){
+      cb(objArray[i])
+    }
+  }
+
+}
 
 
 
